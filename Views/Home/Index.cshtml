@@ -1,0 +1,249 @@
+﻿@model IEnumerable<projekt.Models.Album>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+    <header>
+        <div class="left">
+            <h1 id="testtest">Planet Vinyl</h1>
+            <p>
+                Här på Planet Vinyl finns ett stort sortiment av vinylskivor. Allt från gamla klassiker till nysläppta skivor, både nya och second hand. Alla skivor är i bra skick.
+            </p>
+
+            <div class="symbols">
+                <a asp-action="Music" asp-controller="Home">
+                    <i class="fas fa-compact-disc"></i>
+                    <p>Musik</p>
+                </a>
+                <a asp-action="Mypage" asp-controller="Home">
+                    <i class="fas fa-user-circle"></i>
+                    <p>Mitt konto</p>
+                </a>
+                <a asp-action="About" asp-controller="Home">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Information</p>
+                </a>
+            </div>
+        </div>
+        <div class="vinyl">
+            <img src="~/images/1.png" alt="" class="p1">
+            <img src="~/images/2.png" alt="" class="p2">
+            <img src="~/images/3.png" alt="" class="p3">
+            <img src="~/images/4.png" alt="" class="p4">
+            <img src="~/images/5.png" alt="" class="p5">
+        </div>
+    </header>
+    <div class="innerbody">
+  
+        <div class="grid">
+
+            <h2><i class="fas fa-star"></i> Topplistan</h2>
+            <div class="innergrid first">
+                @foreach (var item in ViewBag.Popular)
+                {
+
+                    <div class="square">
+                        <div class="innersquare">
+                            <div class="front">
+                                <img src="@item.Image"
+                                     alt="">
+                            </div>
+                            <div class="back" @("onclick=GoToAlbum('" + item.AlbumId + "')")>
+
+
+
+                                <p>
+                                    <i class="fas fa-compact-disc"></i> <b>@item.Name</b>
+                                </p>
+
+                                <a asp-controller="Home" asp-action="Artist" asp-route-id="@item.Artist"> <b><i class="fas fa-guitar"></i> @item.Artist</b></a>
+
+                                <br><br>
+
+                            </div>
+                            @if (item.Quantity < 1)
+                            {
+
+
+
+                                <a class="inactive back2">
+                                    <p class="smaller">
+                                        Slut på lager
+                                    </p>
+                                    <h3>
+                                        <i class="fas fa-cart-plus"></i> @item.Price kr
+                                    </h3>
+                                </a>
+
+                            }
+
+
+
+
+
+
+
+                            else
+                            {
+                                <a class="back2" onclick="AddToCart(@item.AlbumId, @item.Quantity)">
+                                    <h3>
+                                        <i class="fas fa-cart-plus"></i> @item.Price kr
+                                    </h3>
+                                </a>
+
+                            }
+
+                        </div>
+
+                    </div>
+                }
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <h2><i class="fas fa-headphones"></i> Nyheter</h2>
+            <div class="innergrid">
+
+
+                @foreach (var item in ViewBag.News)
+                {
+                    <div class="square">
+                        <div class="innersquare">
+                            <div class="front">
+                                <img src="@item.Image"
+                                     alt="">
+                            </div>
+                            <div class="back" @("onclick=GoToAlbum('" + item.AlbumId + "')")>
+
+
+
+                                <p>
+                                    <i class="fas fa-compact-disc"></i> <b>@item.Name</b>
+                                </p>
+
+                                <a asp-controller="Home" asp-action="Artist" asp-route-id="@item.Artist"> <b><i class="fas fa-guitar"></i> @item.Artist</b></a>
+
+                                <br><br>
+
+                            </div>
+                            @if (item.Quantity < 1)
+                            {
+
+
+
+                                <a class="inactive back2">
+                                    <p class="smaller">
+                                        Slut på lager
+                                    </p>
+                                    <h3>
+                                        <i class="fas fa-cart-plus"></i> @item.Price kr
+                                    </h3>
+                                </a>
+
+                            }
+
+
+
+
+
+
+
+                            else
+                            {
+                                <a class="back2" onclick="AddToCart(@item.AlbumId, @item.Quantity)">
+                                    <h3>
+                                        <i class="fas fa-cart-plus"></i> @item.Price kr
+                                    </h3>
+                                </a>
+
+                            }
+
+                        </div>
+
+                    </div>
+                }
+
+
+
+
+
+            </div>
+
+
+            <h2><i class="fas fa-thumbs-up"></i> Rekommendationer</h2>
+            <div class="innergrid">
+
+
+                @foreach (var item in ViewBag.Recs)
+                {
+                    <div class="square">
+                        <div class="innersquare">
+                            <div class="front">
+                                <img src="@item.Image"
+                                     alt="">
+                            </div>
+                            <div class="back" @("onclick=GoToAlbum('" + item.AlbumId + "')")>
+
+
+
+                                <p>
+                                    <i class="fas fa-compact-disc"></i> <b>@item.Name</b>
+                                </p>
+
+                                <a asp-controller="Home" asp-action="Artist" asp-route-id="@item.Artist"> <b><i class="fas fa-guitar"></i> @item.Artist</b></a>
+
+                                <br><br>
+
+                            </div>
+                            @if (item.Quantity < 1)
+                            {
+
+
+
+                                <a class="inactive back2">
+                                    <p class="smaller">
+                                        Slut på lager
+                                    </p>
+                                    <h3>
+                                        <i class="fas fa-cart-plus"></i> @item.Price kr
+                                    </h3>
+                                </a>
+
+                            }
+
+
+
+
+
+
+
+                            else
+                            {
+                                <a class="back2" onclick="AddToCart(@item.AlbumId, @item.Quantity)">
+                                    <h3>
+                                        <i class="fas fa-cart-plus"></i> @item.Price kr
+                                    </h3>
+                                </a>
+
+                            }
+
+                        </div>
+
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+

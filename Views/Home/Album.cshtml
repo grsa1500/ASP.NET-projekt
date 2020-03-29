@@ -1,0 +1,100 @@
+﻿<header class="pageheader pageadmin">
+    <div class="left">
+        <a class="logo" asp-action="Index" asp-controller="Home"><img src="~/images/icon.png" alt=""> <h1>Planet Vinyl</h1></a>
+    </div>
+    </header>
+    <div class="innerbody pageinner">
+
+        @foreach (var item in ViewBag.Album)
+        {
+            <div class="links">
+                <a asp-action="Music" asp-controller="Home">Hem </a>/ <a asp-action="Genre" asp-controller="Home" asp-route-id="@item.Genre" > @item.Genre </a> / @item.Name
+            </div>
+            <div class="albuminfo">
+                <div class="imgbox">
+                    <img class="imgback"
+                         src="@item.Image" alt="">
+                    <img class="imgfront"
+                         src="@item.Image" alt="">
+                </div>
+
+
+                <div class="info2">
+                    <h2>
+                        @item.Name
+                    </h2>
+
+                    <h3> @item.Artist</h3>
+                    <p class="price"> @item.Price kr</p>
+
+                    @if (item.Quantity < 1)
+                    {
+                        if (ViewBag.Loggedin != "Confirmed")
+                        {
+                            <br /><br /> <h3><a asp-action="Login" asp-controller="Home" asp-route-id="album" asp-route-album="@item.AlbumId">Logga in</a> för att bevaka produkten!</h3>
+                        }
+                        else
+                        {
+                            if (ViewBag.WatchList != null)
+                            {
+                                if (ViewBag.WatchList == item.AlbumId)
+                                {
+
+                                    <div>
+                                        <button class="buttonoff"><i class='fas fa-check'></i> Bevakar</button>
+                                    </div>
+                                }
+
+                            }
+
+
+
+                            else
+                            {
+                                <div>
+                                    <button onclick="WatchThis(@ViewBag.Cookie.ToString(), @item.AlbumId)">Bevaka</button>
+                                    </div>
+                                    }
+
+                                    }
+
+                                    }
+
+                                    else
+                                    {
+                <div>
+                    <button onclick="AddToCart(@item.AlbumId, @item.Quantity)"><i class="fas fa-cart-plus"></i></button>
+                </div>
+                                    }
+
+                                    <p> <b>Leveranstid: </b>2-6 arbetsdagar</p>
+                                    <p> <b>Lagerstatus: </b> @item.Quantity st</p>
+
+                                </div>
+                            </div>
+
+
+
+            <div class="albuminfo part2">
+
+                <div>
+                    <h3>Information</h3>
+
+                    <p>
+                        @item.Description
+                    </p>
+                    <br>
+                    <p><b>Inspelad år: </b> @item.Year</p>
+                    <p><b>Label: </b> @item.Label</p>
+                    <p><b>Genre: </b> @item.Genre</p>
+                    <p><b>Speltid: </b> @item.Length</p>
+                </div>
+
+               
+            </div>
+        }
+
+
+
+
+    </div>

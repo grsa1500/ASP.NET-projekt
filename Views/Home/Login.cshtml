@@ -1,0 +1,44 @@
+﻿
+@model projekt.Models.Users
+
+
+<header class="pageheader pageadmin">
+    <div class="left">
+        <a class="logo" asp-action="Index" asp-controller="Home"><img src="~/images/icon.png" alt=""> <h1>Planet Vinyl</h1></a>
+    </div>
+</header>
+
+<div class="innerbody pageinner pageadmin">
+    
+    <div class="loginform">
+
+        <h2>Logga in</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Login">
+                    @ViewBag.Count
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Mail" class="control-label"></label>
+                        <input asp-for="Mail" class="form-control" />
+                        <span asp-validation-for="Mail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Logga in" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <a asp-action="Register" asp-controller="Home" class="middle">Registrera dig.</a>
+    </div>
+    <div>
+  
+    </div>
+
+</div>

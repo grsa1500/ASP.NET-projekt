@@ -1,0 +1,366 @@
+﻿@ViewData["menu"] = "";
+
+<partial name="../Shared/_Pageheader.cshtml" />
+
+<div class="innerbody pageinner musicpage">
+
+    <div class="grid">
+
+        <h2><i class="fas fa-star"></i> Rock</h2>
+        <div class="innergrid first">
+            @foreach (var item in ViewBag.Rock)
+            {
+                <div class="square">
+                    <div class="innersquare">
+                        <div class="front">
+                            <img src="@item.Image"
+                                 alt="">
+                        </div>
+                        <div class="back" @("onclick=GoToAlbum('" + item.AlbumId + "')")>
+
+
+
+                            <p>
+                                <i class="fas fa-compact-disc"></i> <b>@item.Name</b>
+                            </p>
+
+                            <a asp-controller="Home" asp-action="Artist" asp-route-id="@item.Artist"> <b><i class="fas fa-guitar"></i> @item.Artist</b></a>
+
+                            <br><br>
+
+                        </div>
+                        @if (item.Quantity < 1)
+                        {
+
+
+
+                            <a class="inactive back2">
+                                <p class="smaller">
+                                    Slut på lager
+                                </p>
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+
+
+
+
+
+
+                        else
+                        {
+                            <a class="back2" onclick="AddToCart(@item.AlbumId, @item.Quantity)">
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+
+        </div>
+
+        <a class="seemore" asp-action="Genre" asp-controller="Home" asp-route-id="Rock">Se mer <i class="fas fa-long-arrow-alt-right"></i> </a>
+
+
+
+        <h2><i class="fas fa-star"></i> Pop</h2>
+        <div class="innergrid first">
+
+
+
+
+
+            @foreach (var item in ViewBag.Pop)
+            {
+                <div class="square">
+                    <div class="innersquare">
+                        <div class="front">
+                            <img src="@item.Image"
+                                 alt="">
+                        </div>
+                        <div class="back" @("onclick=GoToAlbum('" + item.AlbumId + "')")>
+
+
+
+                            <p>
+                                <i class="fas fa-compact-disc"></i> <b>@item.Name</b>
+                            </p>
+
+                            <a asp-controller="Home" asp-action="Artist" asp-route-id="@item.Artist"> <b><i class="fas fa-guitar"></i> @item.Artist</b></a>
+
+                            <br><br>
+
+                        </div>
+                        @if (item.Quantity < 1)
+                        {
+
+
+
+                            <a class="inactive back2">
+                                <p class="smaller">
+                                    Slut på lager
+                                </p>
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+
+
+
+
+
+
+                        else
+                        {
+                            <a class="back2" onclick="AddToCart(@item.AlbumId, @item.Quantity)">
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+        <a class="seemore" asp-action="Genre" asp-controller="Home" asp-route-id="Pop">Se mer <i class="fas fa-long-arrow-alt-right"></i> </a>
+
+
+
+        <h2><i class="fas fa-star"></i> Jazz</h2>
+        <div class="innergrid first">
+
+
+
+
+            @foreach (var item in ViewBag.Jazz)
+            {
+                <div class="square">
+                    <div class="innersquare">
+                        <div class="front">
+                            <img src="@item.Image"
+                                 alt="">
+                        </div>
+                        <div class="back" @("onclick=GoToAlbum('" + item.AlbumId + "')")>
+
+
+
+                            <p>
+                                <i class="fas fa-compact-disc"></i> <b>@item.Name</b>
+                            </p>
+
+                            <a asp-controller="Home" asp-action="Artist" asp-route-id="@item.Artist"> <b><i class="fas fa-guitar"></i> @item.Artist</b></a>
+
+                            <br><br>
+
+                        </div>
+                        @if (item.Quantity < 1)
+                        {
+
+
+
+                            <a class="inactive back2">
+                                <p class="smaller">
+                                    Slut på lager
+                                </p>
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+
+
+
+
+
+
+                        else
+                        {
+                            <a class="back2" onclick="AddToCart(@item.AlbumId, @item.Quantity)">
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+
+        </div>
+
+        <a class="seemore" asp-action="Genre" asp-controller="Home" asp-route-id="Jazz">Se mer <i class="fas fa-long-arrow-alt-right"></i> </a>
+
+
+
+
+
+        <h2><i class="fas fa-star"></i> Klassiskt</h2>
+        <div class="innergrid first">
+
+
+
+            @foreach (var item in ViewBag.Klassiskt)
+            {
+                <div class="square">
+                    <div class="innersquare">
+                        <div class="front">
+                            <img src="@item.Image"
+                                 alt="">
+                        </div>
+                        <div class="back" @("onclick=GoToAlbum('" + item.AlbumId + "')")>
+
+
+
+                            <p>
+                                <i class="fas fa-compact-disc"></i> <b>@item.Name</b>
+                            </p>
+
+                            <a asp-controller="Home" asp-action="Artist" asp-route-id="@item.Artist"> <b><i class="fas fa-guitar"></i> @item.Artist</b></a>
+
+                            <br><br>
+
+                        </div>
+                        @if (item.Quantity < 1)
+                        {
+
+
+
+                            <a class="inactive back2">
+                                <p class="smaller">
+                                    Slut på lager
+                                </p>
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+
+
+
+
+
+
+                        else
+                        {
+                            <a class="back2" onclick="AddToCart(@item.AlbumId, @item.Quantity)">
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+
+        </div>
+
+        <a class="seemore" asp-action="Genre" asp-controller="Home" asp-route-id="Klassiskt">Se mer <i class="fas fa-long-arrow-alt-right"></i> </a>
+
+
+
+
+
+        <h2><i class="fas fa-star"></i> Övrigt</h2>
+        <div class="innergrid first">
+
+
+
+
+
+
+            @foreach (var item in ViewBag.Övrigt)
+            {
+                <div class="square">
+                    <div class="innersquare">
+                        <div class="front">
+                            <img src="@item.Image"
+                                 alt="">
+                        </div>
+                        <div class="back" @("onclick=GoToAlbum('" + item.AlbumId + "')")>
+
+
+
+                            <p>
+                                <i class="fas fa-compact-disc"></i> <b>@item.Name</b>
+                            </p>
+
+                            <a asp-controller="Home" asp-action="Artist" asp-route-id="@item.Artist"> <b><i class="fas fa-guitar"></i> @item.Artist</b></a>
+
+                            <br><br>
+
+                        </div>
+                        @if (item.Quantity < 1)
+                        {
+
+
+
+                            <a class="inactive back2">
+                                <p class="smaller">
+                                    Slut på lager
+                                </p>
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+
+
+
+
+
+
+                        else
+                        {
+                            <a class="back2" onclick="AddToCart(@item.AlbumId, @item.Quantity)">
+                                <h3>
+                                    <i class="fas fa-cart-plus"></i> @item.Price kr
+                                </h3>
+                            </a>
+
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+
+        </div>
+
+        <a class="seemore" asp-action="Genre" asp-controller="Home" asp-route-id="Övrigt">Se mer <i class="fas fa-long-arrow-alt-right"></i> </a>
+
+    </div>
+</div>
+
+

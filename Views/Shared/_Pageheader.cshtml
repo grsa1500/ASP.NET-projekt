@@ -1,0 +1,37 @@
+﻿<header class="pageheader pageadmin">
+    <div class="left">
+        <a class="logo" asp-action="Index" asp-controller="Home"><img src="~/images/icon.png" alt=""> <h1>Planet Vinyl</h1></a>
+    </div>
+    <div class="symbols musicsymbols">
+        <a asp-action="Music" asp-controller="Home" >
+            <i class="fas fa-star"></i>
+            <p>Utvalda</p>
+        </a>
+        <a asp-action="Genre" asp-controller="Home" asp-route-id="Rock">
+            <img src="~/images/rock.png" alt="Alternate Text" />
+            <p>Rock</p>
+        </a>
+        <a asp-action="Genre" asp-controller="Home" asp-route-id="Pop">
+            <i class="fas fa-compact-disc"></i>
+            <p>Pop</p>
+        </a>
+        <a asp-action="Genre" asp-controller="Home" asp-route-id="Jazz">
+            <img class="smallerimg" src="~/images/jazz.png" alt="Alternate Text" />
+            <p>Jazz</p>
+        </a>
+
+        <a asp-action="Genre" asp-controller="Home" asp-route-id="Klassiskt">
+            <img class="smallerimg" src="~/images/classic.png" alt="Alternate Text" />
+            <p>Klassiskt</p>
+        </a>
+        <a asp-action="Genre" asp-controller="Home" asp-route-id="Övrigt">
+            <i class="fas fa-music"></i>
+            <p>Övrigt</p>
+        </a>
+
+        <a asp-action="Genre" asp-controller="Home" asp-route-id="Alla">
+            <i class="fas fa-infinity"></i>
+            <p>Alla</p>
+        </a>
+    </div>
+</header>
