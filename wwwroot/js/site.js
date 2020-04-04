@@ -47,80 +47,61 @@ function ShowCart() {
 }
 
 
-function MinusQuantity(id, price, max) {
+function ChangeQuantity(quant,id, price, max) {
     var num = document.getElementById(id).innerHTML;
-    if (num > 1) {
-        document.getElementById(id).innerHTML = parseInt(num) - 1;
-        var totalsum = price * (parseInt(num) - 1);
-        document.getElementById(id + "total").innerHTML = totalsum;
-
-        var totalcost = document.getElementById('totalcost').innerHTML;
-        document.getElementById('totalcost').innerHTML = parseInt(totalcost) - price;
-
-        var totaltotalcost = document.getElementById('totaltotalcost').innerHTML;
-        document.getElementById('totaltotalcost').innerHTML = parseInt(totaltotalcost) - price;
-
-        document.getElementById('totalsumtext').innerHTML = parseInt(totaltotalcost) - price;
-     
-
-        var itemId = id;
-        var quant = -1;
-        var max = max;
-
-        $.ajax({
-            type: "POST",
-            url: "/Home/JqAJAX",
-            data: { itemId: itemId, quant: quant, max: max},
-            dataType: "json",
-            success: function (data) {
-                console.log(data)
-            }
-
-
-        });
-
-    }
-
-  
-}
-
-
-function PlusQuantity(id, max, price) {
-    var num = document.getElementById(id).innerHTML;
-    if (num < max) {
-        document.getElementById(id).innerHTML = parseInt(num) + 1;
-
-        var totalsum = price * (parseInt(num) + 1);
-        document.getElementById(id + "total").innerHTML = totalsum;
-
-        var totalcost = document.getElementById('totalcost').innerHTML;
-        document.getElementById('totalcost').innerHTML = parseInt(totalcost) + price;
-
-        var totaltotalcost = document.getElementById('totaltotalcost').innerHTML;
-        document.getElementById('totaltotalcost').innerHTML = parseInt(totaltotalcost) + price;
-
-        document.getElementById('totalsumtext').innerHTML = parseInt(totaltotalcost) +price;
-        
-    }
 
     var itemId = id;
-    var quant = 1;
+    var quant = quant;
     var max = max;
 
-    $.ajax({
-        type: "POST",
-        url: "/Home/JqAJAX",
-        data: { itemId: itemId, quant: quant, max: max},
-        dataType: "json",
-        success: function (data) {
-            console.log(data)
+    var confirm = false;
+
+    if (quant < 0 && num > 1) {
+
+        confirm = true;
+        value = -price;
+        console.log(parseInt(num) + quant)
         }
 
 
-    });
 
- 
-}
+    if (quant > 0 && num < max) {
+
+
+        confirm = true;
+        value = +price;
+        console.log(parseInt(num) + quant)
+    }
+
+        if (confirm) {
+            document.getElementById(id).innerHTML = parseInt(num) + quant;
+            var totalsum = price * (parseInt(num) + quant);
+            document.getElementById(id + "total").innerHTML = totalsum;
+
+            var totalcost = document.getElementById('totalcost').innerHTML;
+            document.getElementById('totalcost').innerHTML = parseInt(totalcost) + value;
+
+            var totaltotalcost = document.getElementById('totaltotalcost').innerHTML;
+            document.getElementById('totaltotalcost').innerHTML = parseInt(totaltotalcost) + value;
+  
+            document.getElementById('totalsumtext').innerHTML = parseInt(totaltotalcost) + value;
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/JqAJAX",
+                data: { itemId: itemId, quant: quant, max: max },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                }
+
+
+            });
+        }
+
+
+    }
+
 
 
 function getShipping(shipping) {
@@ -153,8 +134,9 @@ window.onload = function () {
 
     if (windowLoc == "/checkout") {
 
-    var shipping =  document.getElementById('standardshipping');
-    shipping.children[2].checked = "checked";
+        var shipping = document.getElementById('standardshipping');
+        console.log(shipping.children);
+    shipping.children[3].checked = "checked";
     }
 
 

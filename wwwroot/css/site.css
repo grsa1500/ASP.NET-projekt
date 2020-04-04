@@ -884,8 +884,63 @@ max-width: 700px;
     background: white;
 }
 
+.cartflex {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 20px;
+    padding-right: 30px;
+}
 
-.checkoutbox {
+.cartflex span {
+    display: flex;
+    align-items: center;
+
+}
+
+.cartflex .cartquantity {
+    width: 50px;
+    display: flex;
+    justify-content: space-between;
+    color: #e20057;
+
+}
+
+
+    .cartflex .cartquantity i{
+       cursor: pointer;
+    }
+
+
+.cartflex img {
+    width: 100px;
+}
+
+.information {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+
+}
+
+
+.cartcontainer h2{
+    font-size: 35px;
+    text-align: center;
+
+}
+
+.text-right {
+    text-align: right;
+    padding-right: 30px;
+}
+
+
+
+
+.checkoutbox, .innercart {
     background: white;
     color: black;
     margin-top: 20px;
@@ -958,7 +1013,8 @@ max-width: 700px;
 }
 
 .lastbox img {
-    height: 20px;
+    height: 40px;
+    margin-top: 20px;
 }
 
 .lastbox {
@@ -988,6 +1044,11 @@ max-width: 700px;
     color: black;
 }
 
+.lastbox h3{
+    color: black;
+    margin-bottom: 20px;
+}
+
 .lastbox a {
     color: black;
 }
@@ -1011,14 +1072,20 @@ max-width: 700px;
 }
 
 
-.checkoutboxinner {
+
+.innerorder {
     max-width: 700px;
     margin: auto;
+}
+
+.pageadmin .innerorder input {
+              border: 2px solid #eee;
 
 }
 
- form {
+ .cartcontainer form {
     max-width: none!important;
+    padding: 0!important;
 }
 
  .buttonoff {
