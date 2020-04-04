@@ -145,10 +145,37 @@ namespace projekt.Controllers
 
         [Route("/checkout")]
         [HttpPost]
-        public IActionResult Checkout(Order model, Album album)
+        public IActionResult Checkout(Order model)
         {
-            var totalsum = 0;
 
+            var user = "";
+            if (Request.Cookies["loggedin"] != null)
+            {
+                user = Request.Cookies["loggedin"];
+                ViewBag.Loggedin = "Confirmed";
+                ViewBag.Cookie = Request.Cookies["loggedin"];
+
+
+
+                var userid = Int32.Parse(user);
+
+                var userinfo = (from c in _context.Users
+                                where c.UserId == userid
+                                select c).FirstOrDefault();
+
+                ViewBag.UserInfo = userinfo;
+            }
+            else
+            {
+                user = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            }
+
+
+            var totalsum = 0;
+            var shipping2 = model.Shipping;
+            var h = model.Address;
+            var z = model.Zip;
+            var g = model.City;
 
             var useridsend = Int32.Parse(Request.Cookies["loggedin"]);
             List<CartTest> query = (from a in _context.CartItems
@@ -246,7 +273,7 @@ namespace projekt.Controllers
 
                 // SKICKA ORDERBEKRÄFTELSE
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Planet Vinyl", "planetvinyl@outlook.com"));
+                message.From.Add(new MailboxAddress("Planet Vinyl", "teamplanetvinyl@outlook.com"));
                 message.To.Add(new MailboxAddress(mailuser.FirstName, mailuser.Mail));
                 message.Subject = "Planet Vinyl Orderbekräftelse";
 
@@ -323,7 +350,7 @@ namespace projekt.Controllers
                 using (var client = new SmtpClient())
                 {
                     client.Connect("smtp.live.com", 587);
-                    client.Authenticate("planetvinyl@outlook.com", "VinylPass1");
+                    client.Authenticate("teamplanetvinyl@outlook.com", "VinylPass1");
                     client.Send(message);
                     client.Disconnect(true);
                 }
