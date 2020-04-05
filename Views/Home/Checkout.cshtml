@@ -13,165 +13,211 @@
 
     <div class="cartcontainer">
 
-        <div class="innercart firstbox">
-            <h2>Varukorg</h2>
-
-            @{
-                var totalsum = 0;
-            }
-
-            @foreach (var item in ViewBag.Query)
-            {
-
-                <div class="cartflex">
-                    <img src="@item.image" alt="Skivomslag fˆr @item.name" />
-                    <span class="information">
-                        <b>@item.name</b>
-
-                        @item.artist
-                    </span>
-
-                    <span class="albumprice"><span id="@(item.id)total">@(item.price * item.quantity)</span> kr</span>
-
-                    <span class="cartquantity"> <i onclick="ChangeQuantity(-1, @item.id, @item.price, @item.max)" class="fas fa-minus-circle"></i><span id="@item.id"> @item.quantity </span>  <i onclick="ChangeQuantity(1, @item.id, @item.price, @item.max)" class="fas fa-plus-circle"></i> </span>
-
-
-                    <span> <i class="fas fa-times"></i> </span>
-                </div>
-                <h3>@item.name</h3>
-
-                totalsum = totalsum + (item.price * item.quantity);
-            }
-
-            <div class="text-right"><b>Summa: </b> <span id="totalcost">@totalsum</span> kr</div>
-            <div class="text-right"><b>Frakt: </b><span id="shippingcost">39</span>  kr</div>
-            <div class="text-right"><b>Totalt: </b><span id="totaltotalcost"> @((totalsum + 39))</span> kr</div>
+        @if (ViewBag.Confirmed == "confirmed" && ViewBag.Loggedin == "Confirmed")
+        {
+        <div class="innercart orderbox">
+            <h2>Din best√§llning har lagts!</h2>
+            En orderbekr√§ftelse har skickats (kan ta ett par minuter) till din mailadress: @ViewBag.Userinfo.Mail.
+            <br /> Vi jobbar p√• att skicka ut din best√§llning s√• snabbt som m√∂jligt. <br /><br />
+                                                                                     <h2>Tack f√∂r att du handlar hos Planet Vinyl!</h2>
+            <i class="check fas fa-check-circle"></i>
 
         </div>
-
-        <form asp-action="Checkout">
-
-            <div class="innercart">
-                <h2>Leveranss‰tt</h2>
-                <div class="innerorder">
-                    <label onclick="getShipping(79)" class="container" >
-                        Hemleverans
-                        <br />
-                        <small class="smaller">5-7 dagar</small>
-                        @Html.RadioButtonFor(m => m.Shipping, "79")
-
-                        <span class="checkmark"></span>
-                        <span class="rightside">79 kr</span>
-                    </label>
-                    <label class="container" id="standardshipping" onclick="getShipping(39)">
-                        Standardleverans
-                        <br />
-                        <small class="smaller">1-3 dagar</small>
-                        <img src="https://ps.w.org/dhl-for-woocommerce/assets/banner-772x250.png?rev=1777040" alt="Alternate Text" />
-                        @Html.RadioButtonFor(m => m.Shipping, "39")
-                        <span class="checkmark"></span>
-
-                        <span class="rightside">39 kr</span>
-                    </label>
-                    <label class="container" onclick="getShipping(0)">
-                        Fri Frakt
-                        <br />
-                        <small class="smaller">7-9 dagar</small>
-                        <img src="~/images/postnord.svg" alt="Alternate Text" />
-                        @Html.RadioButtonFor(m => m.Shipping, "0")
-                        <span class="checkmark"></span>
-                        <span class="rightside">0 kr</span>
-                    </label>
+                }
 
 
-                    <div class="form-group">
-                        <label asp-for="Address" class="control-label"></label>
-                        <input onkeyup="fillField('address')" id="addressinput" asp-for="Address" class="form-control" />
-                        <span asp-validation-for="Address" class="text-danger"></span>
-                    </div>
+                @if (ViewBag.CurrentCart > 0)
+                {
+                    <div class="innercart firstbox">
+                        <h2>Varukorg</h2>
 
-                    <div class="form-group">
-                        <label asp-for="Zip" class="control-label"></label>
-                        <input onkeyup="fillField('zip')"id="zipinput" asp-for="Zip" class="form-control" />
-                        <span asp-validation-for="Zip" class="text-danger"></span>
-                    </div>
+                        @{
+                            var totalsum = 0;
+                        }
 
-                    <div class="form-group">
-                        <label asp-for="City" class="control-label"></label>
-                        <input onkeyup="fillField('city')" id="cityinput" asp-for="City" class="form-control" />
-                        <span asp-validation-for="City" class="text-danger"></span>
+                        @foreach (var item in ViewBag.Query)
+                        {
+
+                            <div class="cartflex">
+                                <img src="@item.image" alt="Skivomslag f√∂r @item.name" />
+                                <span class="information">
+                                    <b>@item.name</b>
+
+                                    @item.artist
+                                </span>
+
+                                <span class="albumprice"><span id="@(item.id)total">@(item.price * item.quantity)</span> kr</span>
+
+                                <span class="cartquantity"> <i onclick="ChangeQuantity(-1, @item.id, @item.price, @item.max)" class="fas fa-minus-circle"></i><span id="@item.id"> @item.quantity </span>  <i onclick="ChangeQuantity(1, @item.id, @item.price, @item.max)" class="fas fa-plus-circle"></i> </span>
+
+
+                                <span><a asp-action="Remove" asp-controller="Home" asp-route-id="@item.id"><i class="fas fa-times"></i></a> </span>
+                            </div>
+                            <h3>@item.name</h3>
+
+                            totalsum = totalsum + (item.price * item.quantity);
+                        }
+
+                        <div class="text-right"><b>Summa: </b> <span id="totalcost">@totalsum</span> kr</div>
+                        <div class="text-right"><b>Frakt: </b><span id="shippingcost">39</span>  kr</div>
+                        <div class="text-right"><b>Totalt: </b><span id="totaltotalcost"> @((totalsum + 39))</span> kr</div>
+
                     </div>
 
 
-                </div>
+                    @if (ViewBag.Loggedin == "Confirmed")
+                    {
+
+                        <form asp-action="Checkout">
+
+                            <div class="innercart">
+                                <h2>Leveranss√§tt</h2>
+                                <div class="innerorder">
+                                    <label onclick="getShipping(79)" class="container">
+                                        Hemleverans
+                                        <br />
+                                        <small class="smaller">5-7 dagar</small>
+                                        @Html.RadioButtonFor(m => m.Shipping, "79")
+
+                                        <span class="checkmark"></span>
+                                        <span class="rightside">79 kr</span>
+                                    </label>
+                                    <label class="container" id="standardshipping" onclick="getShipping(39)">
+                                        Standardleverans
+                                        <br />
+                                        <small class="smaller">1-3 dagar</small>
+                                        <img src="https://ps.w.org/dhl-for-woocommerce/assets/banner-772x250.png?rev=1777040" alt="Alternate Text" />
+                                        @Html.RadioButtonFor(m => m.Shipping, "39")
+                                        <span class="checkmark"></span>
+
+                                        <span class="rightside">39 kr</span>
+                                    </label>
+                                    <label class="container" onclick="getShipping(0)">
+                                        Fri Frakt
+                                        <br />
+                                        <small class="smaller">7-9 dagar</small>
+                                        <img src="~/images/postnord.svg" alt="Alternate Text" />
+                                        @Html.RadioButtonFor(m => m.Shipping, "0")
+                                        <span class="checkmark"></span>
+                                        <span class="rightside">0 kr</span>
+                                    </label>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="Address" class="control-label"></label>
+                                        <input onkeyup="fillField('address')" id="addressinput" asp-for="Address" class="form-control" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Zip" class="control-label"></label>
+                                        <input onkeyup="fillField('zip')" id="zipinput" asp-for="Zip" class="form-control" />
+                                        <span asp-validation-for="Zip" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="City" class="control-label"></label>
+                                        <input onkeyup="fillField('city')" id="cityinput" asp-for="City" class="form-control" />
+                                        <span asp-validation-for="City" class="text-danger"></span>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="innercart lastbox">
+                                <div class="innerorder">
+                                    <h2>Slutf√∂r k√∂p</h2>
+                                    <h4>Dina uppgifter</h4>
+                                    <div class="smallerbox">
+                                        <b> @ViewBag.UserInfo.FirstName  @ViewBag.UserInfo.LastName</b>
+                                        <br />
+                                        <span id="address"></span> <span id="zip"></span>  <span id="city"></span>
+                                        <br />
+                                        @ViewBag.UserInfo.Mail
+                                    </div>
+
+                                    <h4>Betals√§tt</h4>
+                                    <div class="smallerbox">
+                                        <b>F√• f√∂rst. Betala sen.</b>
+                                        <br />
+                                        Betala inom 14 dagar -  0 SEK
+                                        <img src="https://res.cloudinary.com/dktx1oojk/image/upload/f_auto,q_90,w_1000,c_scale/web/globalassets/se/hasselby-veterinarpraktik/bilder/klarna_paymentbadge_outsidecheckout_pink.png" alt="Alternate Text" />
+
+                                        <br />
+                                        <small><a href="#">Villkor</a></small>
+                                    </div>
+
+                                    Totalbelopp inkl. moms
+                                    <h3><span id="totalsumtext">@(totalsum + 39)</span> SEK</h3>
+
+                                    <div class="form-group">
+                                        <input type="submit" value="Slutf√∂r k√∂p" class="btn btn-primary" />
+                                    </div>
+
+                                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                                    <small>
+                                        **** OBS DETTA √ÑR ENDAST EN PROTOTYP **** <br />
+                                        Genom att klicka p√• "Slutf√∂r k√∂p" godk√§nner jag Klarnas Anv√§ndarvillkor och bekr√§ftar att jag har l√§st Klarnas Dataskyddspolicy. Jag godk√§nner villkoren f√∂r Adlibris.
+
+
+                                    </small> <br />
+
+                                    <img src="https://seekvectorlogo.com/wp-content/uploads/2019/11/klarna-vector-logo.png" alt="Alternate Text" />
+                                </div>
+                            </div>
+
+
+
+
+                        </form>
+
+
+                    }
+
+                    @if (ViewBag.Loggedin != "Confirmed")
+                    {
+                        <div class="innercart lastbox">
+                            <div class="innerorder">
+
+                                <h3><a asp-action="Login" asp-controller="Home" asp-route-id="checkout">Logga in</a> eller <a asp-action="Register" asp-controller="Home" asp-route-id="checkout">Registrera dig</a>  f√∂r att l√§gga en best√§llning.</h3>
+                            </div>
+                        </div>
+                    }
+
+
+                }
+
+                else
+                {
+                    <div class="innercart firstbox">
+                        <h2>Varukorg</h2>
+                        <h4>Din varukorg √§r tom.</h4>
+                    </div>
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             </div>
 
 
-            <div class="innercart lastbox">
-                <div class="innerorder">
-                    <h2>Slutfˆr kˆp</h2>
-                    <h4>Dina uppgifter</h4>
-                    <div class="smallerbox">
-                        <b> @ViewBag.UserInfo.FirstName  @ViewBag.UserInfo.LastName</b>
-                        <br />
-                        <span id="address"></span> <span id="zip"></span>  <span id="city"></span>
-                        <br />
-                        @ViewBag.UserInfo.Mail
-                    </div>
-
-                    <h4>Betals‰tt</h4>
-                    <div class="smallerbox">
-                        <b>FÂ fˆrst. Betala sen.</b>
-                        <br />
-                        Betala inom 14 dagar -  0 SEK
-                        <img src="https://res.cloudinary.com/dktx1oojk/image/upload/f_auto,q_90,w_1000,c_scale/web/globalassets/se/hasselby-veterinarpraktik/bilder/klarna_paymentbadge_outsidecheckout_pink.png" alt="Alternate Text" />
-
-                        <br />
-                        <small><a href="#">Villkor</a></small>
-                    </div>
-
-                    Totalbelopp inkl. moms
-                    <h3><span id="totalsumtext">@totalsum</span> SEK</h3>
-
-                    <div class="form-group">
-                        <input type="submit" value="Slutfˆr kˆp" class="btn btn-primary" />
-                    </div>
-
-                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
-                    <small>
-                        **** OBS DETTA ƒR ENDAST EN PROTOTYP **** <br />
-                        Genom att klicka pÂ "Slutfˆr kˆp" godk‰nner jag Klarnas Anv‰ndarvillkor och bekr‰ftar att jag har l‰st Klarnas Dataskyddspolicy. Jag godk‰nner villkoren fˆr Adlibris.
-
-
-                    </small> <br />
-
-                    <img src="https://seekvectorlogo.com/wp-content/uploads/2019/11/klarna-vector-logo.png" alt="Alternate Text" />
-                </div>
-            </div>
 
 
 
 
-        </form>
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-
-
-
-
-
-
-</div>
+        </div>

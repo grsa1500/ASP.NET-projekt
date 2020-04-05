@@ -585,11 +585,15 @@ namespace projekt.Controllers
 
                     if (HttpContext.Session.GetString("redirect") == "checkout")
                     {
+
+                        HttpContext.Session.SetString("redirect", "");
                         return Redirect("/checkout");
                     }
                     else if (HttpContext.Session.GetString("redirect") == "album")
                     {
+                        HttpContext.Session.SetString("redirect", "");
                         var album = HttpContext.Session.GetString("album");
+                        HttpContext.Session.SetString("album", "");
 
                         return Redirect("/album?id=" + album);
                     }
@@ -755,9 +759,9 @@ namespace projekt.Controllers
         }
 
         [Route("/register")]
-        public IActionResult Register()
+        public IActionResult Register(string id)
         {
-
+          
 
             var currentcart = _context.CartItems.FromSqlRaw("select * from CartItems").ToList();
             var total = 0;
@@ -789,6 +793,14 @@ namespace projekt.Controllers
             {
                 return Redirect("mypage");
             }
+            
+            if (id != null)
+            {
+     
+                HttpContext.Session.SetString("redirect", id);
+            }
+            ViewBag.Loggedin = HttpContext.Session.GetString("Loggedin");
+           
 
             return View();
         }
@@ -825,8 +837,9 @@ namespace projekt.Controllers
                     _context.SaveChanges();
                 }
             }
+        
 
-            return View();
+            return Redirect("login");
         }
 
         [Route("/logout")]

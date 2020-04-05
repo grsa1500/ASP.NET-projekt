@@ -965,8 +965,9 @@ max-width: 700px;
     border-bottom-right-radius: 14px;
 }
 
-.orderconfirm {
-    text-align: center;
+.orderbox, .orderbox p {
+    text-align: center!important;
+    color: black;
 
 }
 
@@ -1071,6 +1072,9 @@ max-width: 700px;
     width: auto;
 }
 
+.cartcontainer a {
+    color: #e20057;
+}
 
 
 .innerorder {
