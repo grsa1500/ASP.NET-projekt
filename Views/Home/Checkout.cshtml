@@ -51,7 +51,7 @@
                                 <span class="cartquantity"> <i onclick="ChangeQuantity(-1, @item.id, @item.price, @item.max)" class="fas fa-minus-circle"></i><span id="@item.id"> @item.quantity </span>  <i onclick="ChangeQuantity(1, @item.id, @item.price, @item.max)" class="fas fa-plus-circle"></i> </span>
 
 
-                                <span><a asp-action="Remove" asp-controller="Home" asp-route-id="@item.id"><i class="fas fa-times"></i></a> </span>
+                                <span class="x"><a asp-action="Remove" asp-controller="Home" asp-route-id="@item.id"><i class="fas fa-times"></i></a> </span>
                             </div>
                             <h3>@item.name</h3>
 
