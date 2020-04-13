@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using PagedList;
 
 namespace projekt.Controllers
 {
@@ -73,7 +74,7 @@ namespace projekt.Controllers
         }
 
 
-    
+
 
 
 
@@ -247,7 +248,7 @@ namespace projekt.Controllers
 
                     var update = (from a in _context.Albums
                                   where a.AlbumId == Itemid
-                                  select a).FirstOrDefault(); 
+                                  select a).FirstOrDefault();
 
                     update.Quantity = update.Quantity - item.quantity;
                     _context.SaveChanges();
@@ -268,8 +269,8 @@ namespace projekt.Controllers
                 }
 
                 var mailuser = (from a in _context.Users
-                              where a.UserId == Int32.Parse(Request.Cookies["loggedin"].ToString())
-                            select a).FirstOrDefault();
+                                where a.UserId == Int32.Parse(Request.Cookies["loggedin"].ToString())
+                                select a).FirstOrDefault();
 
                 // SKICKA ORDERBEKRÄFTELSE
                 var message = new MimeMessage();
@@ -344,7 +345,7 @@ namespace projekt.Controllers
 
 
                 //bodyBuilder.HtmlBody = "<!DOCTYPE html><html><head><meta charset='utf-8'/><title>Planet Vinyl</title></head><body style='font-family:Arial;'><img src='https://i.imgur.com/eUNl06H.png'/> <div><h1> Orderbekräftelse </h1><h2>Tack för din beställning " + name + "</h2><table bgcolor='#F2F2F2' width='600' cellpadding='0' cellspacing='0' border='0' class='container' color='#000'> <thead>   <tr> <th>Skiva</th><th> Pris</th><th>  Antal</th> </tr> </thead><tbody>" + items + "  </tbody></table><h4> Totalt: " + total + " SEK </h4><h4> Beräknat leveransdatum: " + DateTime.Now.AddDays(5).ToString().Substring(0,10)  + ".</h4></div></body></html>";
-                bodyBuilder.HtmlBody = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'><html data-editor-version='2' class='sg-campaigns' xmlns='http://www.w3.org/1999/xhtml'><head> <meta http-equiv='Content-Type' content='text/html; charset=utf-8'> <meta name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1'> <meta http-equiv='X-UA-Compatible' content='IE=Edge'><!--[if (gte mso 9)|(IE)]> <xml> <o:OfficeDocumentSettings> <o:AllowPNG/> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><![endif]--><!--[if (gte mso 9)|(IE)]> <style type='text/css'> body{width: 600px;margin: 0 auto;}table{border-collapse: collapse;}table, td{mso-table-lspace: 0pt;mso-table-rspace: 0pt;}img{-ms-interpolation-mode: bicubic;}</style><![endif]--> <style type='text/css'> body, p, div{font-family: inherit; font-size: 14px;}body{color: #000000;}body a{color: #1188E6; text-decoration: none;}p{margin: 0; padding: 0;}table.wrapper{width:100% !important; table-layout: fixed; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -moz-text-size-adjust: 100%; -ms-text-size-adjust: 100%;}img.max-width{max-width: 100% !important;}.column.of-2{width: 50%;}.column.of-3{width: 33.333%;}.column.of-4{width: 25%;}@media screen and (max-width:480px){.preheader .rightColumnContent, .footer .rightColumnContent{text-align: left !important;}.preheader .rightColumnContent div, .preheader .rightColumnContent span, .footer .rightColumnContent div, .footer .rightColumnContent span{text-align: left !important;}.preheader .rightColumnContent, .preheader .leftColumnContent{font-size: 80% !important; padding: 5px 0;}table.wrapper-mobile{width: 100% !important; table-layout: fixed;}img.max-width{height: auto !important; max-width: 100% !important;}a.bulletproof-button{display: block !important; width: auto !important; font-size: 80%; padding-left: 0 !important; padding-right: 0 !important;}.columns{width: 100% !important;}.column{display: block !important; width: 100% !important; padding-left: 0 !important; padding-right: 0 !important; margin-left: 0 !important; margin-right: 0 !important;}}</style> <link href='https://fonts.googleapis.com/css?family=Comfortaa|Raleway&display=swap' rel='stylesheet'><style>body{font-family: 'Raleway', sans-serif;}</style> </head> <body> <center class='wrapper' data-link-color='#1188E6' data-body-style='font-size:14px; font-family:inherit; color:#000000; background-color:#f0f0f0;'> <div class='webkit'> <table cellpadding='0' cellspacing='0' border='0' width='100%' class='wrapper' bgcolor='#f0f0f0'> <tbody><tr> <td valign='top' bgcolor='#f0f0f0' width='100%'> <table width='100%' role='content-container' class='outer' align='center' cellpadding='0' cellspacing='0' border='0'> <tbody><tr> <td width='100%'> <table width='100%' cellpadding='0' cellspacing='0' border='0'> <tbody><tr> <td><!--[if mso]> <center> <table><tr><td width='600'><![endif]--> <table width='100%' cellpadding='0' cellspacing='0' border='0' style='width:100%; max-width:600px;' align='center'> <tbody><tr> <td role='modules-container' style='padding:0px 0px 0px 0px; color:#000000; text-align:left;' bgcolor='#ffffff' width='100%' align='left'><table class='module preheader preheader-hide' role='module' data-type='preheader' border='0' cellpadding='0' cellspacing='0' width='100%' style='display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;'> <tbody><tr> <td role='module-content'> <p></p></td></tr></tbody></table><table border='0' cellpadding='0' cellspacing='0' align='center' width='100%' role='module' data-type='columns' style='padding:0;' bgcolor='#181818'> <tbody> <tr role='module-content'> <td height='100%' valign='top'> <table class='column' width='600' style='width:600px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor=''> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='wrapper' role='module' data-type='image' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='b422590c-5d79-4675-8370-a10c2c76af02'> <tbody> <tr> <td style='font-size:6px; line-height:10px; padding:0px 0px 0px 0px;' valign='top' align='left'> <img class='max-width' border='0' style='display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px;' width='600' alt='' data-proportionally-constrained='true' data-responsive='false' src='https://i.imgur.com/eUNl06H.png' > </td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='1995753e-0c64-4075-b4ad-321980b82dfe'> <tbody> <tr> <td style='padding:100px 30px 18px 20px; line-height:36px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: 'Comfortaa'; text-align: inherit'><span style='color: #ffffff; font-size: 40px; font-family: inherit'>Tack för din beställning!</span></div><div></div></div></td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='2ffbd984-f644-4c25-9a1e-ef76ac62a549'> <tbody> <tr> <td style='padding:18px 20px 20px 20px; line-height:24px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'><span style='font-size: 24px; color: #ffffff;' >Vi jobbar nu på att skicka ut dina</span></div><div style='font-family: inherit; text-align: inherit'><span style='font-size: 24px; color: #ffffff;'> varor så snabbt som möjligt!</span></div><div></div></div></td></tr><tr> <td style='padding:18px 20px 20px 20px; line-height:24px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'><span style='font-size: 12px; color: #ffffff;' >*** OBS DETTA ÄR ENDAST EN PROTOTYP ***</span></div><div style='font-family: inherit; text-align: inherit'><span style='font-size: 15px; color: #ffffff;'> Håll utkik efter din faktura som alltid skickas ut direkt från Klarna efter paketet lämnat vårt lager.</span></div><div></div></div></td></tr></tbody> </table><table border='0' cellpadding='0' cellspacing='0' class='module' data-role='module-button' data-type='button' role='module' style='table-layout:fixed;' width='100%' data-muid='69fc33ea-7c02-45ed-917a-b3b8a6866e89'> <tbody> <tr> <td align='left' bgcolor='' class='outer-td' style='padding:0px 0px 0px 0px;'> <table border='0' cellpadding='0' cellspacing='0' class='wrapper-mobile' style='text-align:center;'> <tbody> </tbody> </table> </td></tr></tbody> </table></td></tr></tbody> </table> </td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='8b5181ed-0827-471c-972b-74c77e326e3d'> <tbody> <tr> <td style='padding:30px 20px 18px 30px; line-height:22px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'><span style='color: #910037; font-size: 24px'>Orderbekräftelse</span></div><div></div></div></td></tr></tbody> </table><table class='module' role='module' data-type='divider' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='f7373f10-9ba4-4ca7-9a2e-1a2ba700deb9'> <tbody> <tr> <td style='padding:0px 30px 0px 30px;' role='module-content' height='100%' valign='top' bgcolor=''> <table border='0' cellpadding='0' cellspacing='0' align='center' width='100%' height='3px' style='line-height:3px; font-size:3px;'> <tbody> <tr> <td style='padding:0px 0px 3px 0px;' bgcolor='#e7e7e7'></td></tr></tbody> </table> </td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='264ee24b-c2b0-457c-a9c1-d465879f9935'> <tbody> <tr> <td style='padding:18px 20px 18px 30px; line-height:22px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'>Ordernummer: " + itemsid + ". </div><div style='font-family: inherit; text-align: inherit'><span style='color: #910037'><strong>Beräknad leverans: " + DateTime.Now.AddDays(days).ToString().Substring(0, 10) + ".</strong></span></div><div style='font-family: inherit; text-align: inherit'><br></div><div style='font-family: inherit; text-align: inherit; font-size: 24px;'>Din order:&nbsp;</div><div></div></div></td></tr></tbody> </table> " + items + " <table class='module' role='module' data-type='divider' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='f7373f10-9ba4-4ca7-9a2e-1a2ba700deb9.1'> <tbody> <tr> <td style='padding:20px 30px 0px 30px;' role='module-content' height='100%' valign='top' bgcolor=''> <table border='0' cellpadding='0' cellspacing='0' align='center' width='100%' height='3px' style='line-height:3px; font-size:3px;'> <tbody> <tr> <td style='padding:0px 0px 3px 0px;' bgcolor='E7E7E7'></td></tr></tbody> </table> </td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='264ee24b-c2b0-457c-a9c1-d465879f9935.1'> <tbody> <tr> <td style='padding:18px 20px 30px 30px; line-height:22px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'>Summa: " + sum + " SEK</div><div style='font-family: inherit; text-align: inherit'>Frakt: " + shipping + " SEK</div><div style='font-family: inherit; text-align: inherit'><br>Totalt: &nbsp;</div><div style='font-family: inherit; text-align: inherit'><br></div><div style='font-family: inherit; text-align: inherit'><span style='color: #910037; font-size: 32px; font-family: inherit'>" + total + " SEK</span></div><div></div></div></td></tr></tbody> </table><table border='0' cellpadding='0' cellspacing='0' align='center' width='100%' role='module' data-type='columns' style='padding:0px 20px 0px 20px;' bgcolor='#910037'> <tbody> <tr role='module-content'> <td height='100%' valign='top'> <table class='column' width='140' style='width:140px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor=''> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='9d43ffa1-8e24-438b-9484-db553cf5b092'> </table></td></tr></tbody> </table> <table class='column' width='140' style='width:140px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor=''> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='9d43ffa1-8e24-438b-9484-db553cf5b092.1'> <tbody> </tbody> </table></td></tr></tbody> </table> <table width='140' style='width:140px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor='' class='column column-2'> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='9d43ffa1-8e24-438b-9484-db553cf5b092.1.1'> <tbody> </tbody> </table></td></tr></tbody> </table><table width='140' style='width:140px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor='' class='column column-3'> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='9d43ffa1-8e24-438b-9484-db553cf5b092.1.1.1'> <tbody> </tbody> </table></td></tr></tbody> </table></td></tr></tbody> </table><div data-role='module-unsubscribe' class='module' role='module' data-type='unsubscribe' style='background-color:#910037; color:#ffffff; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;' data-muid='4e838cf3-9892-4a6d-94d6-170e474d21e5'> </div><table border='0' cellpadding='0' cellspacing='0' class='module' data-role='module-button' data-type='button' role='module' style='table-layout:fixed;' width='100%' data-muid='e5cea269-a730-4c6b-8691-73d2709adc62'> </table></td></tr></tbody></table><!--[if mso]> </td></tr></table> </center><![endif]--> </td></tr></tbody></table> </td></tr></tbody></table> </td></tr></tbody></table> </div></center> </body></html>";
+                bodyBuilder.HtmlBody = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'><html data-editor-version='2' class='sg-campaigns' xmlns='http://www.w3.org/1999/xhtml'><head> <meta http-equiv='Content-Type' content='text/html; charset=utf-8'> <meta name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1'> <meta http-equiv='X-UA-Compatible' content='IE=Edge'><!--[if (gte mso 9)|(IE)]> <xml> <o:OfficeDocumentSettings> <o:AllowPNG/> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><![endif]--><!--[if (gte mso 9)|(IE)]> <style type='text/css'> body{width: 600px;margin: 0 auto;}table{border-collapse: collapse;}table, td{mso-table-lspace: 0pt;mso-table-rspace: 0pt;}img{-ms-interpolation-mode: bicubic;}</style><![endif]--> <style type='text/css'> body, p, div{font-family: inherit; font-size: 14px;}body{color: #000000;}body a{color: #1188E6; text-decoration: none;}p{margin: 0; padding: 0;}table.wrapper{width:100% !important; table-layout: fixed; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -moz-text-size-adjust: 100%; -ms-text-size-adjust: 100%;}img.max-width{max-width: 100% !important;}.column.of-2{width: 50%;}.column.of-3{width: 33.333%;}.column.of-4{width: 25%;}@media screen and (max-width:480px){.preheader .rightColumnContent, .footer .rightColumnContent{text-align: left !important;}.preheader .rightColumnContent div, .preheader .rightColumnContent span, .footer .rightColumnContent div, .footer .rightColumnContent span{text-align: left !important;}.preheader .rightColumnContent, .preheader .leftColumnContent{font-size: 80% !important; padding: 5px 0;}table.wrapper-mobile{width: 100% !important; table-layout: fixed;}img.max-width{height: auto !important; max-width: 100% !important;}a.bulletproof-button{display: block !important; width: auto !important; font-size: 80%; padding-left: 0 !important; padding-right: 0 !important;}.columns{width: 100% !important;}.column{display: block !important; width: 100% !important; padding-left: 0 !important; padding-right: 0 !important; margin-left: 0 !important; margin-right: 0 !important;}}</style> <link href='https://fonts.googleapis.com/css?family=Comfortaa|Raleway&display=swap' rel='stylesheet'><style>body{font-family: 'Raleway', sans-serif;}</style> </head> <body> <center class='wrapper' data-link-color='#1188E6' data-body-style='font-size:14px; font-family:inherit; color:#000000; background-color:#f0f0f0;'> <div class='webkit'> <table cellpadding='0' cellspacing='0' border='0' width='100%' class='wrapper' bgcolor='#f0f0f0'> <tbody><tr> <td valign='top' bgcolor='#f0f0f0' width='100%'> <table width='100%' role='content-container' class='outer' align='center' cellpadding='0' cellspacing='0' border='0'> <tbody><tr> <td width='100%'> <table width='100%' cellpadding='0' cellspacing='0' border='0'> <tbody><tr> <td><!--[if mso]> <center> <table><tr><td width='600'><![endif]--> <table width='100%' cellpadding='0' cellspacing='0' border='0' style='width:100%; max-width:600px;' align='center'> <tbody><tr> <td role='modules-container' style='padding:0px 0px 0px 0px; color:#000000; text-align:left;' bgcolor='#ffffff' width='100%' align='left'><table class='module preheader preheader-hide' role='module' data-type='preheader' border='0' cellpadding='0' cellspacing='0' width='100%' style='display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;'> <tbody><tr> <td role='module-content'> <p></p></td></tr></tbody></table><table border='0' cellpadding='0' cellspacing='0' align='center' width='100%' role='module' data-type='columns' style='padding:0;' bgcolor='#181818'> <tbody> <tr role='module-content'> <td height='100%' valign='top'> <table class='column' width='600' style='width:600px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor=''> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='wrapper' role='module' data-type='image' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='b422590c-5d79-4675-8370-a10c2c76af02'> <tbody> <tr> <td style='font-size:6px; line-height:10px; padding:0px 0px 0px 0px;' valign='top' align='left'> <img class='max-width' border='0' style='display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px;' width='600' alt='' data-proportionally-constrained='true' data-responsive='false' src='https://i.imgur.com/eUNl06H.png' > </td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='1995753e-0c64-4075-b4ad-321980b82dfe'> <tbody> <tr> <td style='padding:100px 30px 18px 20px; line-height:36px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: 'Comfortaa'; text-align: inherit'><span style='color: #ffffff; font-size: 40px; font-family: inherit'>Tack för din beställning!</span></div><div></div></div></td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='2ffbd984-f644-4c25-9a1e-ef76ac62a549'> <tbody> <tr> <td style='padding:18px 20px 20px 20px; line-height:24px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'><span style='font-size: 24px; color: #ffffff;' >Vi jobbar nu på att skicka ut dina</span></div><div style='font-family: inherit; text-align: inherit'><span style='font-size: 24px; color: #ffffff;'> varor så snabbt som möjligt!</span></div><div></div></div></td></tr><tr> <td style='padding:18px 20px 20px 20px; line-height:24px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'><span style='font-size: 12px; color: #ffffff;' >*** OBS DETTA ÄR ENDAST EN PROTOTYP ***</span></div><div style='font-family: inherit; text-align: inherit'><span style='font-size: 15px; color: #ffffff;'> Håll utkik efter din faktura som alltid skickas ut direkt från Klarna efter paketet lämnat vårt lager.</span></div><div></div></div></td></tr></tbody> </table><table border='0' cellpadding='0' cellspacing='0' class='module' data-role='module-button' data-type='button' role='module' style='table-layout:fixed;' width='100%' data-muid='69fc33ea-7c02-45ed-917a-b3b8a6866e89'> <tbody> <tr> <td align='left' bgcolor='' class='outer-td' style='padding:0px 0px 0px 0px;'> <table border='0' cellpadding='0' cellspacing='0' class='wrapper-mobile' style='text-align:center;'> <tbody> </tbody> </table> </td></tr></tbody> </table></td></tr></tbody> </table> </td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='8b5181ed-0827-471c-972b-74c77e326e3d'> <tbody> <tr> <td style='padding:30px 20px 18px 30px; line-height:22px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'><span style='color: #910037; font-size: 24px'>Orderbekräftelse</span></div><div></div></div></td></tr></tbody> </table><table class='module' role='module' data-type='divider' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='f7373f10-9ba4-4ca7-9a2e-1a2ba700deb9'> <tbody> <tr> <td style='padding:0px 30px 0px 30px;' role='module-content' height='100%' valign='top' bgcolor=''> <table border='0' cellpadding='0' cellspacing='0' align='center' width='100%' height='3px' style='line-height:3px; font-size:3px;'> <tbody> <tr> <td style='padding:0px 0px 3px 0px;' bgcolor='#e7e7e7'></td></tr></tbody> </table> </td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='264ee24b-c2b0-457c-a9c1-d465879f9935'> <tbody> <tr> <td style='padding:18px 20px 18px 30px; line-height:22px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'>Ordernummer: " + itemsid + "</div><div style='font-family: inherit; text-align: inherit'><span style='color: #910037'><strong>Beräknad leverans: " + DateTime.Now.AddDays(days).ToString().Substring(0, 10) + "</strong></span></div><div style='font-family: inherit; text-align: inherit'><br></div><div style='font-family: inherit; text-align: inherit; font-size: 24px;'>Din order:&nbsp;</div><div></div></div></td></tr></tbody> </table> " + items + " <table class='module' role='module' data-type='divider' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='f7373f10-9ba4-4ca7-9a2e-1a2ba700deb9.1'> <tbody> <tr> <td style='padding:20px 30px 0px 30px;' role='module-content' height='100%' valign='top' bgcolor=''> <table border='0' cellpadding='0' cellspacing='0' align='center' width='100%' height='3px' style='line-height:3px; font-size:3px;'> <tbody> <tr> <td style='padding:0px 0px 3px 0px;' bgcolor='E7E7E7'></td></tr></tbody> </table> </td></tr></tbody> </table><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='264ee24b-c2b0-457c-a9c1-d465879f9935.1'> <tbody> <tr> <td style='padding:18px 20px 30px 30px; line-height:22px; text-align:inherit;' height='100%' valign='top' bgcolor='' role='module-content'><div><div style='font-family: inherit; text-align: inherit'>Summa: " + sum + " SEK</div><div style='font-family: inherit; text-align: inherit'>Frakt: " + shipping + " SEK</div><div style='font-family: inherit; text-align: inherit'><br>Totalt: &nbsp;</div><div style='font-family: inherit; text-align: inherit'><br></div><div style='font-family: inherit; text-align: inherit'><span style='color: #910037; font-size: 32px; font-family: inherit'>" + total + " SEK</span></div><div></div></div></td></tr></tbody> </table><table border='0' cellpadding='0' cellspacing='0' align='center' width='100%' role='module' data-type='columns' style='padding:0px 20px 0px 20px;' bgcolor='#910037'> <tbody> <tr role='module-content'> <td height='100%' valign='top'> <table class='column' width='140' style='width:140px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor=''> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='9d43ffa1-8e24-438b-9484-db553cf5b092'> </table></td></tr></tbody> </table> <table class='column' width='140' style='width:140px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor=''> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='9d43ffa1-8e24-438b-9484-db553cf5b092.1'> <tbody> </tbody> </table></td></tr></tbody> </table> <table width='140' style='width:140px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor='' class='column column-2'> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='9d43ffa1-8e24-438b-9484-db553cf5b092.1.1'> <tbody> </tbody> </table></td></tr></tbody> </table><table width='140' style='width:140px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 0px;' cellpadding='0' cellspacing='0' align='left' border='0' bgcolor='' class='column column-3'> <tbody> <tr> <td style='padding:0px;margin:0px;border-spacing:0;'><table class='module' role='module' data-type='text' border='0' cellpadding='0' cellspacing='0' width='100%' style='table-layout: fixed;' data-muid='9d43ffa1-8e24-438b-9484-db553cf5b092.1.1.1'> <tbody> </tbody> </table></td></tr></tbody> </table></td></tr></tbody> </table><div data-role='module-unsubscribe' class='module' role='module' data-type='unsubscribe' style='background-color:#910037; color:#ffffff; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;' data-muid='4e838cf3-9892-4a6d-94d6-170e474d21e5'> </div><table border='0' cellpadding='0' cellspacing='0' class='module' data-role='module-button' data-type='button' role='module' style='table-layout:fixed;' width='100%' data-muid='e5cea269-a730-4c6b-8691-73d2709adc62'> </table></td></tr></tbody></table><!--[if mso]> </td></tr></table> </center><![endif]--> </td></tr></tbody></table> </td></tr></tbody></table> </td></tr></tbody></table> </div></center> </body></html>";
                 message.Body = bodyBuilder.ToMessageBody();
 
                 using (var client = new SmtpClient())
@@ -364,7 +365,7 @@ namespace projekt.Controllers
         }
 
         [Route("/genre")]
-        public IActionResult Genre(string id)
+        public IActionResult Genre(string id, string searchString, int? page)
 
         {
             var user = "";
@@ -393,23 +394,52 @@ namespace projekt.Controllers
 
             ViewBag.CurrentCart = total;
 
+            var genre = (from a in _context.Albums
+                         select a);
+            
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+
+                page = 1;
+                genre = genre.Where(s => s.Artist.Contains(searchString)
+                                       || s.Name.Contains(searchString));
+
+                ViewBag.SearchString = searchString;
+            }
+
+
             var Genre = id;
             if (Genre == "Rock" || Genre == "Jazz" || Genre == "Pop" || Genre == "Klassiskt")
             {
-                ViewBag.Genre = _context.Albums.FromSqlRaw("select * from Albums Where Genre = '" + Genre + "'order by AlbumId desc").ToList();
+
+                genre = genre.Where(a => a.Genre == Genre);
+                genre = genre.OrderBy(s => s.Artist);
                 ViewBag.Title = Genre;
             }
             else if (Genre == "Alla")
             {
-                ViewBag.Genre = _context.Albums.FromSqlRaw("select * from Albums order by AlbumId desc").ToList();
+                genre = genre.OrderBy(s => s.Artist);
                 ViewBag.Title = "Alla";
+
+               
             }
             else
             {
-                ViewBag.Genre = _context.Albums.FromSqlRaw("select * from Albums Where Genre != 'Rock' and  Genre != 'Pop' and Genre != 'Rock' and  Genre != 'Jazz' and Genre != 'Klassiskt' order by AlbumId desc").ToList();
+                genre = genre.Where(a => a.Genre!="Rock" && a.Genre!="Pop"&& a.Genre!="Klassiskt" && a.Genre != "Jazz"  );
+                genre = genre.OrderBy(s => s.Artist); 
                 ViewBag.Title = "Övrigt";
             }
+
+     
+
+            ViewBag.Genre = genre.ToList(); 
+
+          
             return View();
+    
         }
 
         [Route("/artist")]
@@ -496,11 +526,78 @@ namespace projekt.Controllers
 
                 HttpContext.Session.SetString("redirect", id);
             }
-            ViewBag.Loggedin = HttpContext.Session.GetString("Loggedin");
-            if (HttpContext.Session.GetString("Loggedin") == "Confirmed")
+
+
+            if (ViewBag.Loggedin == "Confirmed")
             {
-                return Redirect("mypage");
+
+
+
+
+
+                var usercart = (from a in _context.CartItems
+                                where a.User == _accessor.HttpContext.Connection.RemoteIpAddress.ToString()
+                select a).ToList();
+
+
+                foreach (var cart in usercart)
+                {
+
+                    var update = (from a in _context.CartItems
+                                  where a.User == user.ToString() && a.ItemId == cart.ItemId
+                                  select a).ToList();
+
+
+                    foreach (var same in update)
+                    {
+
+
+                        _context.CartItems.Remove(same);
+                        _context.SaveChanges();
+                    }
+
+
+
+
+               
+
             }
+
+            var update2 = (from a in _context.CartItems
+                           where a.User == _accessor.HttpContext.Connection.RemoteIpAddress.ToString()
+                select a).ToList();
+
+            foreach (var same in update2)
+            {
+
+                same.User = user.ToString();
+                _context.SaveChanges();
+            }
+
+
+
+
+
+            if (HttpContext.Session.GetString("redirect") == "checkout")
+            {
+
+                HttpContext.Session.SetString("redirect", "");
+                return Redirect("/checkout");
+            }
+            else if (HttpContext.Session.GetString("redirect") == "album")
+            {
+                HttpContext.Session.SetString("redirect", "");
+                var album2 = HttpContext.Session.GetString("album");
+                HttpContext.Session.SetString("album", "");
+
+                return Redirect("/album?id=" + album2);
+            }
+
+            return Redirect("/mypage");
+
+
+        } 
+
             return View();
         }
 
@@ -649,7 +746,12 @@ namespace projekt.Controllers
         [Route("/mypage")]
         public IActionResult Mypage()
         {
-            var user = "";
+            if (Request.Cookies["loggedin"] == null)
+            {
+                return Redirect("/login");
+            }
+
+                var user = "";
 
             if (Request.Cookies["loggedin"] != null)
             {
@@ -789,17 +891,27 @@ namespace projekt.Controllers
 
             ViewBag.CurrentCart = total;
 
-            if (HttpContext.Session.GetString("Loggedin") == "Confirmed")
-            {
-                return Redirect("mypage");
-            }
-            
+           
             if (id != null)
             {
      
                 HttpContext.Session.SetString("redirect", id);
             }
-            ViewBag.Loggedin = HttpContext.Session.GetString("Loggedin");
+
+            else
+            {
+   if (ViewBag.Loggedin == "Confirmed")
+            {
+                return Redirect("mypage");
+            }
+            }
+
+    
+                
+             
+            
+
+          
            
 
             return View();
@@ -837,7 +949,15 @@ namespace projekt.Controllers
                     _context.SaveChanges();
                 }
             }
-        
+
+            var userinfo = (from c in _context.Users
+                            where c.Mail == model.Mail
+                            select c).FirstOrDefault();
+
+            CookieOptions cookies = new CookieOptions();
+            cookies.Expires = DateTime.Now.AddDays(1);
+
+            Response.Cookies.Append("loggedin", (userinfo.UserId).ToString());
 
             return Redirect("login");
         }

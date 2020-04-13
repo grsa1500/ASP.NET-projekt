@@ -34,24 +34,21 @@ namespace projekt
             services.AddDbContext<CartItemsContext>(options =>
          options.UseSqlServer(Configuration.GetConnectionString("DefaultDbString")));
 
-            services.AddDbContext<OrderContext>(options =>
-      options.UseSqlServer(Configuration.GetConnectionString("DefaultDbString")));
-
             services.AddDbContext<OrderItemContext>(options =>
       options.UseSqlServer(Configuration.GetConnectionString("DefaultDbString")));
 
             services.AddDbContext<WatchListContext>(options =>
    options.UseSqlServer(Configuration.GetConnectionString("DefaultDbString")));
             services.AddSession();
-        
+
 
 
             services.Configure<CookiePolicyOptions>(options =>
-        {
-            // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-            options.CheckConsentNeeded = context => true;
-            options.MinimumSameSitePolicy = SameSiteMode.None;
-        });
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             services.AddDistributedMemoryCache();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

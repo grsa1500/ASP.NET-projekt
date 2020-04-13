@@ -1,5 +1,4 @@
 ﻿
-
     function GoToAlbum(id){
         window.location = "/album/?id=" + id;
      }
@@ -123,7 +122,7 @@ function fillField(id) {
 
     field.innerHTML = input.value;
 
-    console.log(id);
+
 
 
 }
@@ -184,3 +183,94 @@ function WatchThis(user, itemid) {
     });
 
 }
+
+
+
+
+if (window.location.pathname == "/genre") {
+
+    var pageonload = true;
+    console.log(pageonload)
+
+    var elmnt = document.getElementById("title");
+   
+    
+
+    count = 0;
+    var currentPage = 1;
+    showAlbums(1);
+
+    function showAlbums(page) {
+     currentPage = page;
+    count = 0;
+    var squares = document.getElementsByClassName("outerproduct");
+    for (var i = 0; i < squares.length; i++) {
+       
+        squares[i].id = "square"+(i+1);
+
+        count = count + 1;
+
+        var numPerPage = 12;
+
+        var firstitem = ((page - 1) * numPerPage + 1);
+        var lastitem = (page * numPerPage);
+
+       
+        if (count >= firstitem && count <= lastitem) {
+            squares[i].style.display = "block";
+        }
+
+        else {
+         squares[i].style.display = "none";
+        }
+
+        }
+
+        checkCurrent(currentPage);
+     
+    }
+
+
+    function checkCurrent(currentpage) {
+
+        if (!pageonload) {
+        elmnt.scrollIntoView();
+        }
+
+        console.log(pageonload);
+
+         pageonload = false;
+       
+    var pages = Math.ceil(count / 12);
+
+        var pagination = document.getElementById("pagination");
+
+        pagination.innerHTML = "";
+
+    if (pages > 1) {
+        for (var i = 1; i <= pages; i++) {
+
+       
+
+
+            if (i == currentpage) {
+                pagination.innerHTML += '<div class="page currentPage">' + i + '</div>';
+            }
+
+            else {
+        pagination.innerHTML += '<div class="page" onclick="showAlbums('+i+')">'+i+'</div>';
+            }
+       
+    
+    }
+    }
+
+}
+    
+
+
+
+}
+
+
+

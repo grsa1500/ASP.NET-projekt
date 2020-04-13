@@ -3,6 +3,7 @@
 * {
     margin: 0;
     padding: 0;
+    -webkit-appearance: none;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     outline-color: white;
@@ -47,6 +48,7 @@ body {
     max-width: 1000px;
     margin: auto;
     padding: 1em;
+    margin-bottom: 100px;
 }
 
 header a, nav a {
@@ -65,9 +67,9 @@ footer {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: space-evenly;
-    -ms-flex-pack: space-evenly;
-    justify-content: space-evenly;
+    -webkit-box-pack: space-between;
+    -ms-flex-pack: space-between;
+    justify-content: space-between;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -76,6 +78,8 @@ footer {
     -ms-flex-direction: column;
     flex-direction: column;
     padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .footerflex2 {
@@ -119,7 +123,10 @@ footer a {
 }
 
     .footerflex img {
-        height: 30px;
+       min-height: 10px;
+       max-height: 30px;
+       height: 100%;
+      
     }
 
 .left {
@@ -141,14 +148,63 @@ a:hover {
     color: #910037;
 }
 
+.outersearch {
+    position: relative;
+    height: 100px;
+}
+
+.searchbox {
+   position: absolute;
+   right: 0;
+   top: 0;
+   width: 100%;
+   max-width: 300px;
+  
+}
+
+    .searchbox input {
+       
+        border: none;
+        border-radius: 20px;
+        width: 85%;
+        height: 40px;
+        padding-left: 10px;
+
+        
+    }
+
+    .searchbox form {
+ display: flex;
+ margin: auto;
+ width: 90%;
+    }
+
+    .searchbox input[type=submit] {
+       border-radius: 100%;
+       width: 40px;
+       height: 40px;
+       padding-left: 0;
+       color: #e20057;
+       background: white;
+       margin-left: 10px;
+    }
+
+    .searchbox p {
+        margin-top: 0;
+    }
+
+
+
 .symbols {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: space-evenly;
-    -ms-flex-pack: space-evenly;
-    justify-content: space-evenly;
+    -webkit-box-pack: space-between;
+    -ms-flex-pack: space-between;
+    justify-content: space-between;
+    margin: auto;
     margin-top: 70px;
+    max-width: 400px;
 }
 
 header i {
@@ -167,6 +223,11 @@ h1 {
 
 .loginform {
     max-width: 700px;
+    margin: auto;
+}
+
+.loginform input[type=submit] {
+    display: block;
     margin: auto;
 }
 
@@ -392,6 +453,10 @@ footer {
     right: 0;
 }
 
+.info2 a h3{
+    color: #e20057;
+}
+
 .square {
     background-color: transparent;
     width: 100%;
@@ -546,8 +611,94 @@ footer {
         color: white;
     }
 
+    #pagination {
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+
+  
+.page {
+    background: #ffffff6e;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 5px;
+    color: white;
+    font-size: 20px;
+    border: 1px solid white;
+    margin-top: 5px;
+}  
+
+.currentPage {
+        background: #e20057;
+        color: white;
+        cursor: initial;
+    }
 
 
+.product {
+    background: white;
+    padding: 15px;
+    text-align: center;
+    color: black!important;
+    font-size: 14px!important;
+    display: flex!important;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+    cursor: pointer;
+}
+
+    .product p {
+        font-size: 14px !important;
+        color: black !important;
+    }
+
+.product a{
+    color: #e20057!important;
+    cursor: pointer;
+}
+
+.product a:hover {
+    color:gray!important;
+}
+
+.product .inactive p{
+    color: grey!important;
+    font-size: 12px!important;
+}
+
+.addtocart {
+    display: block;
+   padding-top: 15px;
+   padding-bottom: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #e20057;
+    cursor: pointer;
+    min-height: 52px;
+}
+
+#title {
+    padding-top: 15px;
+}
+
+.outerproduct .inactive {
+    background: gray!important;
+    color: white;
+}
+
+.product img {
+    
+    margin-bottom: 10px;
+}
 
 /* Album page */
 
@@ -559,6 +710,7 @@ footer {
 
 .musicpage {
     margin-top: 380px;
+    margin-bottom: 50px;
 }
 
 .musicsymbols a {
@@ -597,7 +749,8 @@ footer {
 .musicsymbols {
     width: 100%;
     max-width: 1000px;
-    margin-top: -200px;
+    margin-top: 200px;
+
 }
 
 .imgbox {
@@ -1120,11 +1273,15 @@ table span {
     color: black;
 }
 
+.orderbox h2 {
+    color: #3a4d15;
+}
+
 .check {
     font-size: 130px;
     display: block;
     margin-top: 50px;
-    color: #910037;
+    color: #3a4d15;
 }
 
 .firstbox {
@@ -1261,6 +1418,12 @@ table span {
 
 @media screen and (max-width: 840px) {
 
+    .searchbox {
+       
+        max-width: none;
+        position: relative;
+    }
+
     .bevakning div {
         font-size: 16px;
     }
@@ -1370,7 +1533,7 @@ table span {
 
     footer {
         height: 600px;
-        padding-top: 160px;
+        padding-top: 100px;
         background: url(../images/footer.svg);
         background-repeat: no-repeat;
         background-size: 950px auto;
@@ -1380,6 +1543,9 @@ table span {
         left: 0;
         right: 0;
         background-position: bottom;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .footerflex2 {
@@ -1391,10 +1557,6 @@ table span {
             margin-top: 40px;
         }
 
-    .footerflex img {
-        width: 20%;
-        height: auto;
-    }
 
     .albuminfo {
         display: block;
@@ -1470,7 +1632,7 @@ table span {
         height: 320px;
         width: 320px;
         position: absolute;
-        top: 0;
+        top: 50px;
         left: 0;
         right: 0;
     }
@@ -1509,6 +1671,28 @@ table span {
 
 
 @media screen and (max-width: 540px) {
+
+    .pageheader .musicsymbols .smallerimg {
+        height: 65px;
+        width: 65px;
+    }
+
+
+    .footerflex img {
+
+        max-height: 20px;
+
+    }
+
+    nav a {
+        font-size: 16px;
+        min-width: initial;
+        margin-left: 15px;
+    }
+
+    .back2 i {
+        font-size: 20px;
+    }
 
     header i {
         font-size: 50px;

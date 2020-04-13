@@ -24,7 +24,7 @@
                         @item.Name
                     </h2>
 
-                    <h3> @item.Artist</h3>
+                     <a asp-controller="Home" asp-action="Artist" asp-route-id="@item.Artist"> <h3> <i class="fas fa-guitar"></i> @item.Artist</h3></a>
                     <p class="price"> @item.Price kr</p>
 
                     @if (item.Quantity < 1)
@@ -68,7 +68,18 @@
                                     }
 
                                     <p> <b>Leveranstid: </b>2-6 arbetsdagar</p>
-                                    <p> <b>Lagerstatus: </b> @item.Quantity st</p>
+
+                   @{
+                    var lagerstatus = item.Quantity;
+                    }
+
+                    @{
+                    if(item.Quantity > 10) {
+                    lagerstatus = "10 +";
+                    }
+                    }
+
+                                    <p> <b>Lagerstatus: </b> @lagerstatus st</p>
 
                                 </div>
                             </div>
